@@ -251,3 +251,22 @@ public static Mat Detect(Mat imgInput){
             );
             return img;
         }
+// to april tag basis:
+
+
+// arm lift basis:
+public static void Lift(double inches){
+            LiftET+=(inches * COUNTS_PER_LIFT_INCH);
+            Lift.setTargetPosition(LiftET);
+            Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION)l
+            Lift.setPower(0.3);
+            while(Lift.isBusy()){
+            telemetry.addData("Lifting or something");
+            telemetry.update();
+            }
+            Lift.setPower(0);
+            Lift.setMode(DcMotor.RunMode.BRAKE);
+      
+      
+}
+
