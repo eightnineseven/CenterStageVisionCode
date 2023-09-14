@@ -29,8 +29,9 @@ public class Test {
             showResult(Detect(f));
         }
     }
-    public static Mat Detect(Mat img){
-
+    public static Mat Detect(Mat imgInput){
+        Mat img = new Mat();
+        Imgproc.cvtColor(imgInput, img, Imgproc.COLOR_BGR2HSV);
         final Scalar
                 YELLOW  = new Scalar(0, 255, 255),
                 BLACK = new Scalar(0, 0, 0) ;
