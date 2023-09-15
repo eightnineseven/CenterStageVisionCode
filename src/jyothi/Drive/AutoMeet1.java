@@ -53,6 +53,7 @@ public class AutoMeet1 extends LinearOPMode {
     private VisionPortal visionPortal;               // Used to manage the video source.
     private AprilTagProcessor aprilTag;              // Used for managing the AprilTag detection process.
     private AprilTagDetection desiredTag = null;
+    private VisionPortal visionPortal2;  
 
 
     //main method scaffold:
@@ -92,7 +93,7 @@ public class AutoMeet1 extends LinearOPMode {
 
 
         //run method sequence
-        Detect(img);
+        Detect();
         if(DESIRED_TAG_ID == 1) {
             EncoderTurn(30);
             EncoderFB(1, 1, 1, 1);
@@ -239,9 +240,13 @@ public class AutoMeet1 extends LinearOPMode {
     }
 
     // color code scan basis:
-    public static void Detect(Mat imgInput) {
+    public static void Detect() {
+        visionPortal2 = new VisionPortal.Builder()
+                        .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
+                        .build();
+        Mat imgInput = visionPortal2.getImage();
         Mat img = new Mat();
-        Imgproc.cvtColor(imgInput, img, Imgproc.COLOR_BGR2HSV);
+        Imgproc.cvtColor(imgInput, img, Imgproc.COLOR_YUV2HSV);
         final Scalar
                 YELLOW = new Scalar(0, 255, 255),
                 BLACK = new Scalar(0, 0, 0);
