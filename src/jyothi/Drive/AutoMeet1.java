@@ -18,7 +18,7 @@ public class AutoMeet1 extends LinearOPMode {
     public static double LeftBEC = 0;
     public static double LiftET = 0;
 
-    public static int RandNum = 0;
+
 
     // Guess and Check this value
     static final int COUNTS_PER_TILE = 1;
