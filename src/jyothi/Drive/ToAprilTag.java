@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 @TeleOp(name="Omni Drive To AprilTag", group = "Concept")
 @Disabled
-public class RobotAutoDriveToAprilTagOmni extends LinearOpMode
+public class ToAprilTag extends LinearOpMode
 {
     final double DESIRED_DISTANCE = 4.0; //  this is how close the camera should get to the target (inches)
 

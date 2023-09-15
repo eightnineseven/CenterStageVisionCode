@@ -29,9 +29,8 @@ public class Test {
             showResult(Detect(f));
         }
     }
-    public static Mat Detect(Mat imgInput){
-        Mat img = new Mat();
-        Imgproc.cvtColor(imgInput, img, Imgproc.COLOR_BGR2HSV);
+    public static Mat Detect(Mat img){
+
         final Scalar
                 YELLOW  = new Scalar(0, 255, 255),
                 BLACK = new Scalar(0, 0, 0) ;
@@ -187,5 +186,34 @@ public class Test {
             HighGui.imshow("pic", img);
             HighGui.waitKey(1);
 
+
+
+//        Imgproc.resize(img, img, new Size(640, 480));
+//        MatOfByte m = new MatOfByte();
+//        Imgcodecs.imencode(".jpg", img, m);
+//        byte[] byteArray = m.toArray();
+//        BufferedImage bufImage = null;
+//
+//
+//        try {
+//
+//
+//
+//            InputStream in = new ByteArrayInputStream(byteArray);
+//            bufImage = ImageIO.read(in);
+//            JFrame frame = new JFrame();
+//
+//
+//
+//
+//            frame.getContentPane().add(new JLabel(new ImageIcon(bufImage)));
+//            frame.pack();
+//            frame.setVisible(true);
+//
+//
+//        }
+//        catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 }
