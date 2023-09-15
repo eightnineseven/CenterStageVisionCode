@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="328ea6b5-9981-449c-bab5-371aef905d43" name="Changes" comment="w">
+    <list default="true" id="328ea6b5-9981-449c-bab5-371aef905d43" name="Changes" comment="hope this works">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jyothi/ColorCapture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jyothi/ColorCapture.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jyothi/Drive/AutoMeet1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jyothi/Drive/AutoMeet1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jyothi/Drive/ToAprilTag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jyothi/Drive/ToAprilTag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jyothi/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jyothi/Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +121,14 @@
       <option name="project" value="LOCAL" />
       <updated>1694655551903</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="hope this works">
+      <created>1694740069523</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1694740069523</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -135,7 +139,8 @@
     <MESSAGE value="Camera Testing" />
     <MESSAGE value="Fully functional camera program, fix points and color" />
     <MESSAGE value="w" />
-    <option name="LAST_COMMIT_MESSAGE" value="w" />
+    <MESSAGE value="hope this works" />
+    <option name="LAST_COMMIT_MESSAGE" value="hope this works" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

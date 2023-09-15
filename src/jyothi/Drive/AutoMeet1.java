@@ -10,7 +10,7 @@
 
 import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
-Public class AutoMeet1 extends LinearOPMode {
+public class AutoMeet1 extends LinearOPMode {
     // all variable decs except to april tag
     public static double RightFEC = 0;
     public static double LeftFEC = 0;
@@ -29,20 +29,7 @@ Public class AutoMeet1 extends LinearOPMode {
     private DcMotor LeftFront = null;
     private DcMotor RightBack = null;
     private DcMotor RightFront = null;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  //  private DcMotor Lift = null;
 
 
 //to april tag decs
@@ -52,42 +39,20 @@ Public class AutoMeet1 extends LinearOPMode {
     //  Set the GAIN constants to control the relationship between the measured position error, and how much power is
     //  applied to the drive motors to correct the error.
     //  Drive = Error * Gain    Make these values smaller for smoother control, or larger for a more aggressive response.
-    final double SPEED_GAIN  =  0.02  ;   //  Forward Speed Control "Gain". eg: Ramp up to 50% power at a 25 inch error.   (0.50 / 25.0)
-    final double STRAFE_GAIN =  0.015 ;   //  Strafe Speed Control "Gain".  eg: Ramp up to 25% power at a 25 degree Yaw error.   (0.25 / 25.0)
-    final double TURN_GAIN   =  0.01  ;   //  Turn Control "Gain".  eg: Ramp up to 25% power at a 25 degree error. (0.25 / 25.0)
+    final double SPEED_GAIN = 0.02;   //  Forward Speed Control "Gain". eg: Ramp up to 50% power at a 25 inch error.   (0.50 / 25.0)
+    final double STRAFE_GAIN = 0.015;   //  Strafe Speed Control "Gain".  eg: Ramp up to 25% power at a 25 degree Yaw error.   (0.25 / 25.0)
+    final double TURN_GAIN = 0.01;   //  Turn Control "Gain".  eg: Ramp up to 25% power at a 25 degree error. (0.25 / 25.0)
 
     final double MAX_AUTO_SPEED = 0.5;   //  Clip the approach speed to this max value (adjust for your robot)
-    final double MAX_AUTO_STRAFE= 0.5;   //  Clip the approach speed to this max value (adjust for your robot)
-    final double MAX_AUTO_TURN  = 0.3;   //  Clip the turn speed to this max value (adjust for your robot)
-
+    final double MAX_AUTO_STRAFE = 0.5;   //  Clip the approach speed to this max value (adjust for your robot)
+    final double MAX_AUTO_TURN = 0.3;   //  Clip the turn speed to this max value (adjust for your robot)
 
 
     private static final boolean USE_WEBCAM = true;  // Set true to use a webcam, or false for a phone camera
-    private static final int DESIRED_TAG_ID = 0;     // Choose the tag you want to approach or set to -1 for ANY tag.
+    private static int DESIRED_TAG_ID = 0;     // Choose the tag you want to approach or set to -1 for ANY tag.
     private VisionPortal visionPortal;               // Used to manage the video source.
     private AprilTagProcessor aprilTag;              // Used for managing the AprilTag detection process.
     private AprilTagDetection desiredTag = null;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     //main method scaffold:
@@ -95,45 +60,90 @@ Public class AutoMeet1 extends LinearOPMode {
     public void runOpMode() {
 
 
-
-
-
-
-
-
 //to april tag code
-        boolean targetFound     = false;    // Set to true when an AprilTag target is detected
-        double  drive           = 0;        // Desired forward power/speed (-1 to +1)
-        double  strafe          = 0;        // Desired strafe power/speed (-1 to +1)
-        double  turn            = 0;
+        boolean targetFound = false;    // Set to true when an AprilTag target is detected
+        double drive = 0;        // Desired forward power/speed (-1 to +1)
+        double strafe = 0;        // Desired strafe power/speed (-1 to +1)
+        double turn = 0;
         initAprilTag();
         if (USE_WEBCAM) setManualExposure(6, 250);
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         LeftBack = hardwareMap.get(DcMotor.class, "LeftBack");
         RightBack = hardwareMap.get(DcMotor.class, "RightBack");
         LeftFront = hardwareMap.get(DcMotor.class, "LeftFront");
         RightFront = hardwareMap.get(DcMotor.class, "RightFront");
+       // Lift = hardwareMap.get(DcMotor.class, "Lift");
 
         //reversals check
         LeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         LeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         RightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         RightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    //    Lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+
+
+
+
+
+
+
 
         //run method sequence
+        Detect(img);
+        if(DESIRED_TAG_ID == 1) {
+            EncoderTurn(30);
+            EncoderFB(1, 1, 1, 1);
+         //   Lift(2);
+
+            //drop
+         //   Lift(-2);
+            EncoderTurn(60);
+        } else if(DESIRED_TAG_ID == 2){
+            EncoderFB(1.5, 1.5, 1.5, 1.5);
+          //  Lift(2);
+            //drop
+          //  Lift(-2);
+            EncoderTurn(90);
+
+        } else if(DESIRED_TAG_ID == 3){
+            EncoderTurn(-30);
+            EncoderFB(1, 1, 1,1);
+          //  Lift(2);
+            //drop
+          //  Lift(-2);
+            EncoderTurn(120);
+        }
+        EncoderFB(2, 2, 2, 2);
+        findTag();
+       // Lift(6);
+        //drop
+       // Lift(-6);
+        EncoderTurn(90);
+        EncoderFB(1,1,1,1);
+        EncoderTurn(-90);
+        EncoderFB(1,1,1,1);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 
@@ -229,7 +239,7 @@ Public class AutoMeet1 extends LinearOPMode {
     }
 
     // color code scan basis:
-    public static Mat Detect(Mat imgInput) {
+    public static void Detect(Mat imgInput) {
         Mat img = new Mat();
         Imgproc.cvtColor(imgInput, img, Imgproc.COLOR_BGR2HSV);
         final Scalar
@@ -282,7 +292,6 @@ Public class AutoMeet1 extends LinearOPMode {
 
         if (Sec1AvgDist < Sec2AvgDist && Sec1AvgDist < Sec3AvgDist) {
             System.out.println("1");
-            RandNum =1;
             Imgproc.rectangle(
                     img,
                     sec1top,
@@ -307,10 +316,10 @@ Public class AutoMeet1 extends LinearOPMode {
                     2
 
             );
-            return img;
+            DESIRED_TAG_ID = 1;
         } else if (Sec2AvgDist < Sec3AvgDist) {
             System.out.println("2");
-            RandNum =2;
+            RandNum = 2;
             Imgproc.rectangle(
                     img,
                     sec2top,
@@ -335,10 +344,11 @@ Public class AutoMeet1 extends LinearOPMode {
                     2
 
             );
-            return img;
+            DESIRED_TAG_ID = 2;
+
         } else {
             System.out.println("3");
-            RandNum =3;
+            RandNum = 3;
             Imgproc.rectangle(
                     img,
                     sec3top,
@@ -363,19 +373,9 @@ Public class AutoMeet1 extends LinearOPMode {
                     2
 
             );
-            return img;
+            DESIRED_TAG_ID = 3;
         }
-
-
-
-
-
-
-
-
-
-
-
+    }
 
 
 
@@ -390,7 +390,7 @@ Public class AutoMeet1 extends LinearOPMode {
 
 
 // to april tag basis:
-        public static void findTag( AprilTagDetection desiredTag){
+        public static void findTag (){
             List<AprilTagDetection> currentDetections = aprilTag.getDetections();
             for (AprilTagDetection detection : currentDetections) {
                 if ((detection.metadata != null) &&
@@ -405,16 +405,16 @@ Public class AutoMeet1 extends LinearOPMode {
             if (targetFound) {
 
                 // Determine heading, range and Yaw (tag image rotation) error so we can use them to control the robot automatically.
-                double  rangeError      = (desiredTag.ftcPose.range - DESIRED_DISTANCE);
-                double  headingError    = desiredTag.ftcPose.bearing;
-                double  yawError        = desiredTag.ftcPose.yaw;
+                double rangeError = (desiredTag.ftcPose.range - DESIRED_DISTANCE);
+                double headingError = desiredTag.ftcPose.bearing;
+                double yawError = desiredTag.ftcPose.yaw;
 
                 // Use the speed and turn "gains" to calculate how we want the robot to move.
-                drive  = Range.clip(rangeError * SPEED_GAIN, -MAX_AUTO_SPEED, MAX_AUTO_SPEED);
-                turn   = Range.clip(headingError * TURN_GAIN, -MAX_AUTO_TURN, MAX_AUTO_TURN) ;
+                drive = Range.clip(rangeError * SPEED_GAIN, -MAX_AUTO_SPEED, MAX_AUTO_SPEED);
+                turn = Range.clip(headingError * TURN_GAIN, -MAX_AUTO_TURN, MAX_AUTO_TURN);
                 strafe = Range.clip(-yawError * STRAFE_GAIN, -MAX_AUTO_STRAFE, MAX_AUTO_STRAFE);
 
-                telemetry.addData("Auto","Drive %5.2f, Strafe %5.2f, Turn %5.2f ", drive, strafe, turn);
+                telemetry.addData("Auto", "Drive %5.2f, Strafe %5.2f, Turn %5.2f ", drive, strafe, turn);
             }
             telemetry.update();
 
@@ -422,12 +422,12 @@ Public class AutoMeet1 extends LinearOPMode {
             moveRobot(drive, strafe, turn);
             sleep(10);
         }
-        public void moveRobot(double x, double y, double yaw) {
+        public static void moveRobot(double x, double y, double yaw){
             // Calculate wheel powers.
-            double leftFrontPower    =  x -y -yaw;
-            double rightFrontPower   =  x +y +yaw;
-            double leftBackPower     =  x +y -yaw;
-            double rightBackPower    =  x -y +yaw;
+            double leftFrontPower = x - y - yaw;
+            double rightFrontPower = x + y + yaw;
+            double leftBackPower = x + y - yaw;
+            double rightBackPower = x - y + yaw;
 
             // Normalize wheel powers to be less than 1.0
             double max = Math.max(Math.abs(leftFrontPower), Math.abs(rightFrontPower));
@@ -451,7 +451,7 @@ Public class AutoMeet1 extends LinearOPMode {
         /**
          * Initialize the AprilTag processor.
          */
-        private void initAprilTag() {
+        private void initAprilTag () {
             // Create the AprilTag processor by using a builder.
             aprilTag = new AprilTagProcessor.Builder().build();
 
@@ -473,7 +473,7 @@ Public class AutoMeet1 extends LinearOPMode {
      Manually set the camera gain and exposure.
      This can only be called AFTER calling initAprilTag(), and only works for Webcams;
     */
-        private void    setManualExposure(int exposureMS, int gain) {
+        private void setManualExposure ( int exposureMS, int gain){
             // Wait for the camera to be open, then use the controls
 
             if (visionPortal == null) {
@@ -492,14 +492,13 @@ Public class AutoMeet1 extends LinearOPMode {
             }
 
             // Set camera controls unless we are stopping.
-            if (!isStopRequested())
-            {
+            if (!isStopRequested()) {
                 ExposureControl exposureControl = visionPortal.getCameraControl(ExposureControl.class);
                 if (exposureControl.getMode() != ExposureControl.Mode.Manual) {
                     exposureControl.setMode(ExposureControl.Mode.Manual);
                     sleep(50);
                 }
-                exposureControl.setExposure((long)exposureMS, TimeUnit.MILLISECONDS);
+                exposureControl.setExposure((long) exposureMS, TimeUnit.MILLISECONDS);
                 sleep(20);
                 GainControl gainControl = visionPortal.getCameraControl(GainControl.class);
                 gainControl.setGain(gain);
@@ -521,21 +520,27 @@ Public class AutoMeet1 extends LinearOPMode {
 
 
 
+
+
+
+
+
 // arm lift basis:
-        public static void Lift (double inches){
-            LiftET += (inches * COUNTS_PER_LIFT_INCH);
-            Lift.setTargetPosition(LiftET);
-            Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION) l
-            Lift.setPower(0.3);
-            while (Lift.isBusy()) {
-                telemetry.addData("Lifting or something");
-                telemetry.update();
-            }
-            Lift.setPower(0);
-            Lift.setMode(DcMotor.RunMode.BRAKE);
+//        public static void Lift ( double inches){
+//            LiftET += (inches * COUNTS_PER_LIFT_INCH);
+//            Lift.setTargetPosition(LiftET);
+//            Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION) l
+//            Lift.setPower(0.3);
+//            while (Lift.isBusy()) {
+//                telemetry.addData("Lifting or something");
+//                telemetry.update();
+//            }
+//            Lift.setPower(0);
+//            Lift.setMode(DcMotor.RunMode.BRAKE);
+//
+//
+//        }
 
-
-        }
 
     }
-}
+
