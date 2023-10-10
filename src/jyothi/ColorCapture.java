@@ -60,7 +60,7 @@ public class ColorCapture {
     }
 
 
-}
+
 
     public static void showResult(Mat img) {
             HighGui.imshow("pic", img);

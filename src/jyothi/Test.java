@@ -13,6 +13,8 @@ import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static jdk.internal.org.jline.utils.AttributedStyle.*;
 import static org.opencv.core.Core.inRange;
@@ -29,163 +31,202 @@ public class Test {
             showResult(Detect(f));
         }
     }
-    public static Mat Detect(Mat img){
+    public enum ParkingPosition {
+        LEFT,
+        CENTER,
+        RIGHT
+    }
+    public static String position;
+    public static Mat Detect(Mat img1) {
 
-        final Scalar
-                YELLOW  = new Scalar(0, 255, 255),
-                BLACK = new Scalar(0, 0, 0) ;
 
-        Rect sec1 = new Rect(100, 100, 100, 100);
-        Rect sec2 = new Rect(300, 100, 100, 100);
-        Rect sec3 = new Rect(500, 100, 100, 100);
+       Mat img = new Mat();
+        Imgproc.cvtColor(img1, img, Imgproc.COLOR_BGR2HSV);
+        int viewPortX = 640;
+        int viewPortY = 720;
+
+        int sec1X = 100;
+        int sec1Y = 180;
+        int sec1Width = 100;
+        int sec1Height = 90;
+
+        int sec2X = 300;
+        int sec2Y = 180;
+        int sec2Width = 100;
+        int sec2Height = 90;
+
+        int sec3X = 500;
+        int sec3Y = 180;
+        int sec3Width = 100;
+        int sec3Height = 90;
+
+
+
+
+        Rect sec1 = new Rect(sec1X, sec1Y, sec1Width, sec1Height);
+        Rect sec2 = new Rect(sec2X , sec2Y, sec2Width, sec2Height);
+        Rect sec3 = new Rect(sec3X, sec3Y, sec3Width, sec3Height);
 
         Mat sec1MAT = new Mat(img, sec1);
         Mat sec2MAT = new Mat(img, sec2);
         Mat sec3MAT = new Mat(img, sec3);
 
 
-
-        //Core.inRange(sec1MAT, new Scalar(150 , 90, 40), new Scalar(210, 150, 90), sec1MAT);
-        // Core.inRange(sec2MAT, new Scalar(150, 90, 40), new Scalar(210, 150, 90), sec2MAT);
-        // Core.inRange(sec3MAT, new Scalar(150, 90, 40), new Scalar(210, 150, 90), sec3MAT);
-        // Core.inRange(img, new Scalar(150, 90, 40), new Scalar(210,150,90), img);
-        //  Scalar sec1count = Core.sumElems(sec1MAT);
-        // Scalar sec2count = Core.sumElems(sec2MAT);
-        //  Scalar sec3count = Core.sumElems(sec3MAT);
         Scalar sec1Scalar = Core.mean(sec1MAT);
         Scalar sec2Scalar = Core.mean(sec2MAT);
         Scalar sec3Scalar = Core.mean(sec3MAT);
 
 
-
-        Scalar green = new Scalar(0,255,0);
-        double Sec1AvgDist = Math.abs(100-sec1Scalar.val[0]) + (255-sec1Scalar.val[1]) + Math.abs(100-sec1Scalar.val[2]);
-        double Sec2AvgDist = (Math.abs(100-sec2Scalar.val[0]) + (255-sec2Scalar.val[1]) + Math.abs(100-sec2Scalar.val[2]));
-        double Sec3AvgDist = (Math.abs(100-sec3Scalar.val[0]) + (255-sec3Scalar.val[1]) + Math.abs(100-sec3Scalar.val[2]));
-
-
-
-
-
-
-
-
-
-        Point sec1top = new Point(
-                100,
-                100
-        );
-        Point sec1bot = new Point(
-                200,
-                200
-        );
-        Point sec2top = new Point(
-                300,
-                100
-        );
-        Point sec2bot = new Point(
-                400,
-                200
-        );
-        Point sec3top = new Point(
-                500,
-                100
-        );
-        Point sec3bot = new Point(
-                600,
-                200
-        );
+        Scalar ColorToMatch = new Scalar(0, 183, 219);
+        if(sec1Scalar.val[0] > 180){
+            sec1Scalar.val[0] =360 - sec1Scalar.val[0];
+        }
+        if(sec2Scalar.val[0] > 180){
+            sec2Scalar.val[0] = 360 - sec2Scalar.val[0];
+        }
+        if(sec3Scalar.val[0] > 180){
+            sec3Scalar.val[0] = 360 - sec3Scalar.val[0];
+        }
+        double Sec1AvgDist = 2 *Math.abs(ColorToMatch.val[0] -sec1Scalar.val[0]) + Math.abs(ColorToMatch.val[1] - sec1Scalar.val[1]) + Math.abs(ColorToMatch.val[2] - sec1Scalar.val[2]);
+        double Sec2AvgDist = (2 * Math.abs(ColorToMatch.val[0] - sec2Scalar.val[0]) + Math.abs(ColorToMatch.val[1] - sec2Scalar.val[1]) + Math.abs(ColorToMatch.val[2] - sec2Scalar.val[2]));
+        double Sec3AvgDist = (2 * Math.abs(ColorToMatch.val[0] - sec3Scalar.val[0]) + Math.abs(ColorToMatch.val[1] - sec3Scalar.val[1]) + Math.abs(ColorToMatch.val[2] - sec3Scalar.val[2]));
 
 
-        if(Sec1AvgDist < Sec2AvgDist && Sec1AvgDist<Sec3AvgDist){
-            System.out.println("1");
-            Imgproc.rectangle(
-                    img,
-                    sec1top,
-                    sec1bot,
-                    YELLOW,
-                    2
 
+
+            Point sec1top = new Point(
+                    sec1X,
+                    sec1Y
             );
-            Imgproc.rectangle(
-                    img,
-                    sec2top,
-                    sec2bot,
-                    BLACK,
-                    2
-
+            Point sec1bot = new Point(
+                    sec1X + sec1Width,
+                    sec1Y + sec1Height
             );
-            Imgproc.rectangle(
-                    img,
-                    sec3top,
-                    sec3bot,
-                    BLACK,
-                    2
-
+            Point sec2top = new Point(
+                    sec2X,
+                    sec2Y
             );
-            return img;
-        } else if(Sec2AvgDist<Sec3AvgDist){
-            System.out.println("2");
-            Imgproc.rectangle(
-                    img,
-                    sec2top,
-                    sec2bot,
-                    YELLOW,
-                    2
-
+            Point sec2bot = new Point(
+                    sec2X + sec2Width,
+                    sec2Y + sec2Height
             );
-            Imgproc.rectangle(
-                    img,
-                    sec3top,
-                    sec3bot,
-                    BLACK,
-                    2
-
+            Point sec3top = new Point(
+                    sec3X,
+                    sec3Y
             );
-            Imgproc.rectangle(
-                    img,
-                    sec1top,
-                    sec1bot,
-                    BLACK,
-                    2
-
+            Point sec3bot = new Point(
+                    sec3X + sec3Width,
+                    sec3Y + sec3Height
             );
-            return img;
-        } else {
-            System.out.println("3");
-            Imgproc.rectangle(
-                    img,
-                    sec3top,
-                    sec3bot,
-                    YELLOW,
-                    2
 
-            );
-            Imgproc.rectangle(
-                    img,
-                    sec1top,
-                    sec1bot,
-                    BLACK,
-                    2
 
-            );
-            Imgproc.rectangle(
-                    img,
-                    sec2top,
-                    sec2bot,
-                    BLACK,
-                    2
+            if (Sec1AvgDist < Sec2AvgDist && Sec1AvgDist < Sec3AvgDist) {
 
-            );
-            return img;
+                position = String.valueOf(ParkingPosition.LEFT);
+                Imgproc.rectangle(
+                        img,
+                        sec1top,
+                        sec1bot,
+                        new Scalar(sec1Scalar.val[0], sec1Scalar.val[1],
+                                sec1Scalar.val[2]),
+                        10
+
+                );
+                Imgproc.rectangle(
+                        img,
+                        sec2top,
+                        sec2bot,
+                        new Scalar(sec2Scalar.val[0], sec2Scalar.val[1],
+                                sec2Scalar.val[2]),
+                        2
+
+                );
+                Imgproc.rectangle(
+                        img,
+                        sec3top,
+                        sec3bot,
+                        new Scalar(sec3Scalar.val[0], sec3Scalar.val[1],
+                                sec3Scalar.val[2]),
+                        2
+
+                );
+
+            } else if (Sec2AvgDist < Sec3AvgDist) {
+                position = String.valueOf(ParkingPosition.CENTER);
+
+                Imgproc.rectangle(
+                        img,
+                        sec2top,
+                        sec2bot,
+                        new Scalar(sec2Scalar.val[0], sec2Scalar.val[1],
+                                sec2Scalar.val[2]),
+                        10
+
+                );
+                Imgproc.rectangle(
+                        img,
+                        sec3top,
+                        sec3bot,
+                        new Scalar(sec3Scalar.val[0], sec3Scalar.val[1],
+                                sec3Scalar.val[2]),
+                        2
+
+                );
+                Imgproc.rectangle(
+                        img,
+                        sec1top,
+                        sec1bot,
+                        new Scalar(sec1Scalar.val[0], sec1Scalar.val[1],
+                                sec1Scalar.val[2]),
+                        2
+
+                );
+
+            } else {
+                position = String.valueOf(ParkingPosition.RIGHT);
+
+                Imgproc.rectangle(
+                        img,
+                        sec3top,
+                        sec3bot,
+                        new Scalar(sec3Scalar.val[0],sec3Scalar.val[1],sec3Scalar.val[2]),
+                        10
+
+                );
+                Imgproc.rectangle(
+                        img,
+                        sec1top,
+                        sec1bot,
+                        new Scalar(sec1Scalar.val[0],sec1Scalar.val[1],sec1Scalar.val[2]),
+                        2
+
+                );
+                Imgproc.rectangle(
+                        img,
+                        sec2top,
+                        sec2bot,
+                        new Scalar(sec2Scalar.val[0],sec2Scalar.val[1],sec2Scalar.val[2]),
+                        2
+
+                );
+            }
+
+            // Release and return input
+
+//                System.out.println("Sec 1 Hue: " + Math.round(sec1Scalar.val[0]) + " "
+//                        + "Sec 1 Saturation: " + Math.round(sec1Scalar.val[1]) + " "
+//                        + "Sec 1 Value: " + Math.round(sec1Scalar.val[2]));
+        System.out.println((int)Sec1AvgDist + " " + (int)Sec2AvgDist + " " + (int)Sec3AvgDist);
+            Mat Showimg = new Mat();
+        Imgproc.cvtColor(img, Showimg, Imgproc.COLOR_HSV2BGR);
+            return Showimg;
+
+
         }
 
-
-    }
-    public static void showResult(Mat img) {
+        public static void showResult (Mat img){
             HighGui.imshow("pic", img);
             HighGui.waitKey(1);
-
 
 
 //        Imgproc.resize(img, img, new Size(640, 480));
@@ -215,5 +256,5 @@ public class Test {
 //        catch (Exception e) {
 //            e.printStackTrace();
 //        }
+        }
     }
-}
