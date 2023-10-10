@@ -45,6 +45,7 @@ public class Test {
         int viewPortX = 640;
         int viewPortY = 720;
 
+
         int sec1X = 100;
         int sec1Y = 180;
         int sec1Width = 100;
