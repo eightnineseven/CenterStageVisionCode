@@ -78,15 +78,11 @@ public class Test {
 
 
         Scalar ColorToMatch = new Scalar(0, 183, 219);
-        if(sec1Scalar.val[0] > 180){
-            sec1Scalar.val[0] =360 - sec1Scalar.val[0];
-        }
-        if(sec2Scalar.val[0] > 180){
-            sec2Scalar.val[0] = 360 - sec2Scalar.val[0];
-        }
-        if(sec3Scalar.val[0] > 180){
-            sec3Scalar.val[0] = 360 - sec3Scalar.val[0];
-        }
+
+        if(sec1Scalar.val[0] > 180) sec1Scalar.val[0] =360 - sec1Scalar.val[0];
+        if(sec2Scalar.val[0] > 180) sec2Scalar.val[0] = 360 - sec2Scalar.val[0];
+        if(sec3Scalar.val[0] > 180) sec3Scalar.val[0] = 360 - sec3Scalar.val[0];
+
         double Sec1AvgDist = 2 *Math.abs(ColorToMatch.val[0] -sec1Scalar.val[0]) + Math.abs(ColorToMatch.val[1] - sec1Scalar.val[1]) + Math.abs(ColorToMatch.val[2] - sec1Scalar.val[2]);
         double Sec2AvgDist = (2 * Math.abs(ColorToMatch.val[0] - sec2Scalar.val[0]) + Math.abs(ColorToMatch.val[1] - sec2Scalar.val[1]) + Math.abs(ColorToMatch.val[2] - sec2Scalar.val[2]));
         double Sec3AvgDist = (2 * Math.abs(ColorToMatch.val[0] - sec3Scalar.val[0]) + Math.abs(ColorToMatch.val[1] - sec3Scalar.val[1]) + Math.abs(ColorToMatch.val[2] - sec3Scalar.val[2]));
