@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="328ea6b5-9981-449c-bab5-371aef905d43" name="Changes" comment="Code to use w/o lift when we fr get robot">
+    <list default="true" id="328ea6b5-9981-449c-bab5-371aef905d43" name="Changes" comment="Formatting updates for readability in if statements">
+      <change afterPath="$PROJECT_DIR$/src/jyothi/CodeToAddBcBSODLovesProgramming.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/jyothi/ColorDetectBlue.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jyothi/ColorCapture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jyothi/ColorCapture.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jyothi/Drive/AutoMeet1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jyothi/Drive/AutoMeet1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jyothi/Drive/ToAprilTag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jyothi/Drive/ToAprilTag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jyothi/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jyothi/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jyothi/ColorCapture.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jyothi/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jyothi/ColorDetectRed.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,18 +50,18 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.gutterIcons&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.jyothi.Test">
-    <configuration name="Test" type="Application" factoryName="Application" nameIsGenerated="true">
+  <component name="RunManager" selected="Application.ColorDetectBlue">
+    <configuration name="ColorDetectBlue" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../../../../Program Files/Java/jdk-19" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="MAIN_CLASS_NAME" value="Test" />
+      <option name="MAIN_CLASS_NAME" value="jyothi.ColorDetectBlue" />
       <module name="OpenCVPoleDetection" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="jyothi.Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="jyothi.Test" />
+    <configuration name="ColorDetectRed" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="jyothi.ColorDetectRed" />
       <module name="OpenCVPoleDetection" />
       <extension name="coverage">
         <pattern>
@@ -80,9 +80,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.ColorDetectBlue" />
+      <item itemvalue="Application.ColorDetectRed" />
+      <item itemvalue="Application.opencv_version" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.jyothi.Test" />
+        <item itemvalue="Application.ColorDetectRed" />
         <item itemvalue="Application.opencv_version" />
       </list>
     </recent_temporary>
@@ -138,11 +143,50 @@
       <option name="project" value="LOCAL" />
       <updated>1694741390710</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Test.java now holds perfect color code. BGR -&gt; HSV means more reliable distinguishing of color. Still can perfect the color we're matching to. New way of setting sec1-3 mats as well as rects which makes it easier to make adjustments.">
+      <created>1696910430535</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1696910430535</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Test.java now holds perfect color code. BGR -&gt; HSV means more reliable distinguishing of color. Still can perfect the color we're matching to. New way of setting sec1-3 mats as well as rects which makes it easier to make adjustments.">
+      <created>1696910507438</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1696910507438</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Test.java now holds perfect color code. BGR -&gt; HSV means more reliable distinguishing of color. Still can perfect the color we're matching to. New way of setting sec1-3 mats as well as rects which makes it easier to make adjustments.">
+      <created>1696910518453</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1696910518453</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Formatting updates for readability in if statements">
+      <created>1696910600176</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1696910600176</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.py" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -151,7 +195,9 @@
     <MESSAGE value="w" />
     <MESSAGE value="hope this works" />
     <MESSAGE value="Code to use w/o lift when we fr get robot" />
-    <option name="LAST_COMMIT_MESSAGE" value="Code to use w/o lift when we fr get robot" />
+    <MESSAGE value="Test.java now holds perfect color code. BGR -&gt; HSV means more reliable distinguishing of color. Still can perfect the color we're matching to. New way of setting sec1-3 mats as well as rects which makes it easier to make adjustments." />
+    <MESSAGE value="Formatting updates for readability in if statements" />
+    <option name="LAST_COMMIT_MESSAGE" value="Formatting updates for readability in if statements" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

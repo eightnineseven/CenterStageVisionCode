@@ -1,0 +1,146 @@
+//FOR STANDARD BLUE/RED 45 POINT AUTO ON ALL SIDE
+
+//For the Center scan BLUE:
+IMUTurn(-10);
+EncoderFB(1.7,1.7,1.7,1.7);
+EncoderFB(-0.4, -0.4, -0.4, -0.4);
+IMUTurn(90);
+EncoderFB(1,1,1,1);
+
+
+//For the Right scan BLUE:
+IMUTurn(-35);
+EncoderFB(1.5,1.5,1.5,1.5);
+EncoderFB(-0.4,-0.4,-0.4,-0.4);
+IMUTurn(90);
+EncoderFB(1,1,1,1);
+
+
+
+
+
+//For left scan RED:
+IMUTurn(30);
+EncoderFB(1.4,1.4,1.4,1.4);
+EncoderFB(-0.4,-0.4,-0.4,-0.4);
+IMUTurn(-90);
+EncoderFB(0.6,0.6,0.6,0.6);
+
+
+//For center scan RED:
+IMUTurn(-10);
+EncoderFB(1.7,1.7,1.7,1.7);
+EncoderFB(-0.4, -0.4, -0.4, -0.4);
+IMUTurn(-90);
+EncoderFB(1,1,1,1);
+
+
+//For right scan RED:
+IMUTurn(-35);
+EncoderFB(1.5,1.5,1.5,1.5);
+EncoderFB(-0.4,-0.4,-0.4,-0.4);
+IMUTurn(-90);
+EncoderFB(0.4,0.4,0.4,0.4);
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// IF ON CLOSE SIDE
+//For after if-statements RED:
+DetectTag();
+EncoderFB(1.5,-1.5,-1.5,1.5);
+EncoderFB(0.3,0.3,0.3,0.3);
+
+//For after if-statement BLUE:
+//Strafe Left:
+DetectTag();
+EncoderFB(-1.5,1.5,1.5,-1.5);
+EncoderFB(0.3,0.3,0.3,0.3);
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//IF TEAMMATE IS PARKING NEXT TO BOARD WHEN WE START CLOSE:
+
+//After if-statements RED:
+DetectTag();
+EncoderFB(-0.7,0.7,0.7,-0.7);
+EncoderFB(0.3,0.3,0.3,0.3);
+
+//After if-statements BLUE:
+DetectTag();
+EncoderFB(0.7,-0.7,-0.7,0.7);
+EncoderFB(0.3,0.3,0.3,0.3);
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//45 POINT AUTO FROM FAR SIDE
+//After if-statements RED PARK LEFT OF BOARD:
+sleep(15);
+EncoderFB(1,-1,-1,1);
+EncoderFB(2.4,2.4,2.4,2.4);
+IMUTurn(-60);
+trueDesiredTag = DESIRED_TAG;
+DESIRED_TAG = 3;
+DESIRED_DISTANCE = 20;
+DetectTag();
+DESIRED_TAG = trueDesiredTag;
+DESIRED_DISTANCE = 4;
+IMUTurn(-90);
+DetectTag();
+EncoderFB(-0.7,0.7,0.7,-0.7);
+EncoderFB(0.3,0.3,0.3,0.3);
+
+//After if-statements RED PARK RIGHT OF BOARD:
+sleep(15);
+EncoderFB(1,-1,-1,1);
+EncoderFB(2.4,2.4,2.4,2.4);
+IMUTurn(-60);
+trueDesiredTag = DESIRED_TAG;
+DESIRED_TAG = 3;
+DESIRED_DISTANCE = 20;
+DetectTag();
+DESIRED_TAG = trueDesiredTag;
+DESIRED_DISTANCE = 4;
+IMUTurn(-90);
+DetectTag();
+EncoderFB(0.7,-0.7,-0.7,0.7);
+EncoderFB(0.3,0.3,0.3,0.3);
+
+
+//After if-statements BLUE PARK RIGHT OF BOARD:
+sleep(15);
+EncoderFB(-1,1,1,-1);
+EncoderFB(2.4,2.4,2.4,2.4);
+IMUTurn(60);
+trueDesiredTag = DESIRED_TAG;
+DESIRED_TAG = 1;
+DESIRED_DISTANCE = 20;
+DetectTag();
+DESIRED_TAG = trueDesiredTag;
+DESIRED_DISTANCE = 4;
+IMUTurn(90);
+DetectTag();
+EncoderFB(0.7,-0.7,-0.7,0.7);
+EncoderFB(0.3,0.3,0.3,0.3);
+
+
+//After if-statements BLUE PARK LEFT OF BOARD:
+sleep(15);
+EncoderFB(-1,1,1,-1);
+EncoderFB(2.4,2.4,2.4,2.4);
+IMUTurn(60);
+trueDesiredTag = DESIRED_TAG;
+DESIRED_TAG = 1;
+DESIRED_DISTANCE = 20;
+DetectTag();
+DESIRED_TAG = trueDesiredTag;
+DESIRED_DISTANCE = 4;
+IMUTurn(90);
+DetectTag();
+EncoderFB(-0.7,0.7,0.7,-0.7);
+EncoderFB(0.3,0.3,0.3,0.3);
+
+
+
+
+
+

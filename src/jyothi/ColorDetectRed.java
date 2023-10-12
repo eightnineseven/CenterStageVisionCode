@@ -4,22 +4,10 @@ package jyothi;
 
 import org.opencv.core.*;
 import org.opencv.highgui.HighGui;
-import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoCapture;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import static jdk.internal.org.jline.utils.AttributedStyle.*;
-import static org.opencv.core.Core.inRange;
-
-public class Test {
+public class ColorDetectRed {
     public static void main(String[] args) {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         VideoCapture video = new VideoCapture(0);
@@ -209,12 +197,11 @@ public class Test {
 
             // Release and return input
 
-//                System.out.println("Sec 1 Hue: " + Math.round(sec1Scalar.val[0]) + " "
-//                        + "Sec 1 Saturation: " + Math.round(sec1Scalar.val[1]) + " "
-//                        + "Sec 1 Value: " + Math.round(sec1Scalar.val[2]));
-        System.out.println((int)Sec1AvgDist + " " + (int)Sec2AvgDist + " " + (int)Sec3AvgDist);
+         //       System.out.println("Sec 1 Hue: " + Math.round(sec1Scalar.val[0]) + " "+ "Sec 1 Saturation: " + Math.round(sec1Scalar.val[1]) + " "+ "Sec 1 Value: " + Math.round(sec1Scalar.val[2]));
+       System.out.println((int)Sec1AvgDist + " " + (int)Sec2AvgDist + " " + (int)Sec3AvgDist);
             Mat Showimg = new Mat();
         Imgproc.cvtColor(img, Showimg, Imgproc.COLOR_HSV2BGR);
+        Core.flip(Showimg, Showimg, +1);
             return Showimg;
 
 
